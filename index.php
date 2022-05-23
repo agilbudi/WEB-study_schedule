@@ -90,7 +90,7 @@ function joinTugas($idmatkul)
         <tbody align="center">
             <td>
                 <div class="card bg-dark mb-3">
-                    <h3 class="card-header text-primary font-weight-bolder">Jadwal Mata Kuliah</h3>
+                    <h3 class="card-header text-primary font-weight-bolder">Jadwal Mata Kuliah Online</h3>
                     <div class="card-body">
                         <h5 class="card-title">Daftar tugas yang belum dikerjakan</h5>
                         <div class="card-columns text-dark">
@@ -350,7 +350,7 @@ function joinTugas($idmatkul)
         <tfoot align="center">
             <tr>
                 <td style="font-family: 'Courier New', Courier, monospace; font-size: 10pt"><b>© <?php echo date("M Y") ?></b>
-                    <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://berikhtiar.com/hide.980" class='text-white' target='_blank'>HiDe09</a></td>
+                    <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://github.com/agilbudi" class='text-white' target='_blank'>HiDe09</a></td>
             </tr>
         </tfoot>
     </table>

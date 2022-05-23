@@ -5,7 +5,6 @@ $idmatkul = $_GET["idmatkul"];
 if (isset($_POST["submit"])) {
     if (tambahTugas($_POST) > 0) {
         echo "<script>
-        alert('Data berhasil ditambah! ☺');
         document.location.href= 'index.php';
         </script>";
     }else {
@@ -101,7 +100,7 @@ if (isset($_POST["submit"])) {
             <tfoot style="height: 5%;" align="center">
             <tr>
                 <td style="font-family: 'Courier New', Courier, monospace; font-size: 10pt"><b>© <?php echo date("M Y")?></b>
-                <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://berikhtiar.com/hide.980" class='text-white' target='_blank'>HiDe09</a></td>
+                <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://github.com/agilbudi" class='text-white' target='_blank'>HiDe09</a></td>
             </tr>
             </tfoot>
         </table>

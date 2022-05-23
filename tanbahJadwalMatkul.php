@@ -1,6 +1,5 @@
 ﻿<?php
 include 'funtions.php';
-$tabel = "JadwalUTS";
 
 if (isset($_POST["submit"])) {
     if (tambahMatkul($_POST) > 0) {
@@ -11,7 +10,7 @@ if (isset($_POST["submit"])) {
     }else {
         echo "<script>
         alert('Data Gagal Ditambahkan!');
-        document.location.href= 'index.php';
+        // document.location.href= 'index.php';
         </script>";
     }
 }

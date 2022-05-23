@@ -61,7 +61,7 @@ $showMatkul = query_getData("SELECT * FROM matkul ORDER BY hari ASC");
                                     <th class="text-info" style="text-align: center;">Type</th>
                                     <th class="text-info" style="text-align: center;">Hari</th>
                                     <th class="text-info" style="text-align: center;">Jam</th>
-                                    <th class="text-info" style="text-align: center;">Link Media</th>
+                                    <th class="text-info" style="text-align: center;">Ubah</th>
                                     <th class="text-danger" style="text-align: center;">Salah?</th>
                                 </tr>
                             </thead>
@@ -80,8 +80,8 @@ $showMatkul = query_getData("SELECT * FROM matkul ORDER BY hari ASC");
                                             echo "<td>". $row['jenis'] ."</td>";
                                             echo "<td>". hari($row['hari']) ."</td>";
                                             echo "<td style='text-align: center;'>". $row['waktu'] ."</td>";
-                                            echo "<td style='text-align: center;'><a href='" . $row["linkmedia"] . 
-                                                "' class='text-warning' target='_blank'>Buka</a></td>";
+                                            echo "<td style='text-align: center;'><a href='ubahJadwalKuliah.php?id=" . $row["idmatkul"] . 
+                                                "' class='text-warning'>Pilih</a></td>";
                                             echo "<td style='text-align: center;'><a href='hapus.php?id=" . $row["idmatkul"] . 
                                                 "&name=matkul' class='btn btn-sm btn-danger'>Hapus</a></td>";
                                             echo "</tr>";
@@ -96,7 +96,7 @@ $showMatkul = query_getData("SELECT * FROM matkul ORDER BY hari ASC");
         <tfoot align="center">
             <tr>
                 <td style="font-family: 'Courier New', Courier, monospace; font-size: 10pt"><b>© <?php echo date("M Y")?></b>
-                <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://berikhtiar.com/hide.980" class='text-white' target='_blank'>HiDe09</a></td>
+                <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://github.com/agilbudi" class='text-white' target='_blank'>HiDe09</a></td>
             </tr>
         </tfoot>
     </table>

@@ -1,21 +1,23 @@
-﻿<?php
+<?php
 include 'funtions.php';
-$tabel = "uts";
+
+$id = $_GET["id"];
+
+$data = query_getData("SELECT * FROM matkul WHERE idmatkul = $id");
 
 if (isset($_POST["submit"])) {
-    if (tambah($_POST, $tabel) > 0) {
+    if (updateMatkul($_POST) > 0) {
         echo "<script>
-        alert('Data berhasil ditambah! ☺');
-        document.location.href= 'index.php';
+        alert('Data berhasil diubah! ☺');
+        document.location.href='listMatkul.php';
         </script>";
     }else {
         echo "<script>
-        alert('Data Gagal Ditambahkan!');
-        document.location.href= 'index.php';
+        alert('Data Gagal diubah!');
         </script>";
+        var_dump($_POST);
     }
 }
-$showMatkul = query_getData("SELECT * FROM matkul");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +30,7 @@ $showMatkul = query_getData("SELECT * FROM matkul");
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="libraries/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="libraries/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <title>Tambah Jadwal UTS</title>
+    <title>Ubah Mata Kuliah</title>
     <style>
     body,
     html {
@@ -48,7 +50,7 @@ $showMatkul = query_getData("SELECT * FROM matkul");
 </head>
 
 <body>
-    <h1 class="display-3" align="center">Tambah Jadwal UTS</h1>
+    <h1 class="display-3 text-info" align="center">Ubah Mata Kuliah</h1>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="index.php">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#option" aria-controls="option"
@@ -78,32 +80,41 @@ $showMatkul = query_getData("SELECT * FROM matkul");
                 <tr style="height: 70%">
                     <td>
                         <form method="post" action="" align="left"
-                            style="width: 80%; padding: 20px; border: 0px solid #f1f1f1; background-color: rgba(0, 0, 51, 0.2);">
+                            style="width: 80%; padding: 20px; border: 0px solid #f1f1f1; background-color: rgba(23, 162, 184, 0.2);">
+                            <input class="form-control" type="hidden" name="id" value="<?= $data[0]["idmatkul"] ?>">
                             <div class="form-group">
-                                <select id="id" class="form-control" name="id">
-                                <?php if ($showMatkul){
-                                        foreach($showMatkul as $row){
-                                            echo "<option value='".$row['idmatkul']."'>";
-                                            echo $row['matkul'] . " - " . $row["jenis"] . "</option>";
-                                        }
-                                    }
-                                ?>
-                                </select>
+                                <input type="namespace" class="form-control" id="matkul" name="matkul"
+                                    placeholder="Nama Matkul" value="<?= $data[0]["matkul"] ?>" required>
                             </div>
+                            <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-info">
+                                    <input type="radio" value="TEORI" name="jenis" <?php if($data[0]["jenis"]=="TEORI"){echo "checked";}?> required> Teori
+                                </label>
+                                <label class="btn btn-info">
+                                    <input type="radio" value="GABUNGAN" name="jenis" <?php if($data[0]["jenis"]=="GABUNGAN"){echo "checked";}?> required> Gabungan
+                                </label>
+                                <label class="btn btn-info">
+                                    <input type="radio" value="PRAKTIKUM" name="jenis" <?php if($data[0]["jenis"]=="PRAKTIKUM"){echo "checked";}?> required> Praktikum
+                                </label>
+                            </div> 
                             <br />
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <input type="text" name="tanggal" class="form-control datepicker datetimepicker-input"
-                                            data-toggle="datetimepicker" data-target=".datepicker" placeholder="Pilih Tanggal"/>
+                            <div class="form-group">Hari
+                                <div class="form-row">
+                                    <div class="col-3">
+                                        <select id="hari" class="form-control" name="hari" required>
+                                            <option <?php if($data[0]["hari"]==1){echo "selected";}?> value="1">Senin</option>
+                                            <option <?php if($data[0]["hari"]==2){echo "selected";}?> value="2">Selasa</option>
+                                            <option <?php if($data[0]["hari"]==3){echo "selected";}?> value="3">Rabu</option>
+                                            <option <?php if($data[0]["hari"]==4){echo "selected";}?> value="4">Kamis</option>
+                                            <option <?php if($data[0]["hari"]==5){echo "selected";}?> value="5">Jumat</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">Jam
                                 <div class="form-row">
-                                    <div class="col-3"><select id="jam" class="form-control" name="jam">
+                                    <div class="col-3">
+                                        <select id="jam" class="form-control" name="jam" required>
                                             <?php for ($i=1; $i < 25; $i++): ?>
                                             <option value="<?php echo str_pad($i,2,"0",STR_PAD_LEFT); ?>">
                                                 <?php echo str_pad($i,2,"0",STR_PAD_LEFT); ?></option>
@@ -111,7 +122,7 @@ $showMatkul = query_getData("SELECT * FROM matkul");
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <select name="menit" class="form-control" id="menit">
+                                        <select name="menit" class="form-control" id="menit" required>
                                             <?php for ($i=0; $i < 60; $i++): ?>
                                             <?php if ($i % 5) continue?>
                                             <option value="<?php echo str_pad($i,2,"0",STR_PAD_LEFT); ?>">
@@ -120,9 +131,16 @@ $showMatkul = query_getData("SELECT * FROM matkul");
                                         </select>
                                     </div>
                                 </div>
+                                <?php if ($data[0]["waktu"]!="01:00") {
+                                   echo "<small id='emailHelp' class='form-text text-danger'>Harap atur kembali jam.</small>";
+                                }?>
+                            </div>
+                            <div class="form-group">
+                                <input type="namespace" class="form-control" id="linkmedia" name="linkmedia"
+                                    placeholder="Paste Link - Media" value="<?= $data[0]["linkmedia"] ?>" required>
                             </div>
                             <div align="right">
-                                <button type="submit" class="btn btn-dark" name="submit">Tambah</button>
+                                <button type="submit" class="btn btn-info" name="submit">Simpan</button>
                             </div>
                         </form>
                     </td>
@@ -134,7 +152,7 @@ $showMatkul = query_getData("SELECT * FROM matkul");
             <tfoot style="height: 5%;" align="center">
                 <tr>
                     <td style="font-family: 'Courier New', Courier, monospace; font-size: 10pt"><b>© <?php echo date("M Y")?></b>
-                    <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://github.com/agilbudi" class='text-white' target='_blank'>HiDe09</a></td>
+                    <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://berikhtiar.com/hide.980" class='text-white' target='_blank'>HiDe09</a></td>
                 </tr>
             </tfoot>
         </table>

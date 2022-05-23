@@ -3,11 +3,12 @@ include 'funtions.php';
 
 $id = $_GET["id"];
 $tabel = $_GET["name"];
+$is = 
 
 $data = query_getData("SELECT * FROM $tabel WHERE id$tabel = $id");
 
 if (isset($_POST["submit"])) {
-    if ($uu = update($_POST, $tabel) > 0) {
+    if (update($_POST, $tabel) > 0) {
         echo "<script>
         alert('Data berhasil diubah! ☺');
         document.location.href='index.php';
@@ -31,7 +32,7 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="libraries/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="libraries/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <title>Home</title>
+    <title>Ubah Jadwal</title>
     <style>
     body,
     html {
@@ -51,7 +52,7 @@ if (isset($_POST["submit"])) {
 </head>
 
 <body>
-    <h1 class="display-3 text-warning" align="center">Ubah Jadwal UAS</h1>
+    <h1 class="display-3 text-info" align="center">Ubah Jadwal <?php echo ($tabel=="uas")? "UAS" : "UTS" ?></h1>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="index.php">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#option" aria-controls="option"
@@ -81,20 +82,20 @@ if (isset($_POST["submit"])) {
                 <tr style="height: 70%">
                     <td>
                         <form method="post" action="" align="left" class="rounded"
-                            style="width: 80%; padding: 20px;  border: 0px solid #f1f1f1; background-color: rgba(0, 0, 51, 0.2);">
+                            style="width: 80%; padding: 20px;  border: 0px solid #f1f1f1; background-color: rgba(23, 162, 184, 0.2);">
                             <input class="form-control" type="hidden" name="id" value="<?= $data[0]["id$tabel"] ?>">
                             <div class="form-group">
                                 <input type="namespace" class="form-control" id="matkul" name="matkul"
                                     placeholder="Nama Matkul" value="<?= $data[0]["matkul"] ?>" required>
                             </div>
                             <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-warning">
+                                <label class="btn btn-info">
                                     <input type="radio"  value="TEORI" name="jenis" <?php if($data[0]["jenis"]=="TEORI"){echo "checked";}?> required> Teori
                                 </label>
-                                <label class="btn btn-warning">
+                                <label class="btn btn-info">
                                     <input type="radio" value="GABUNGAN" name="jenis" <?php if($data[0]["jenis"]=="GABUNGAN"){echo "checked";}?> required> Gabungan
                                 </label>
-                                <label class="btn btn-warning">
+                                <label class="btn btn-info">
                                     <input type="radio" value="PRAKTIKUM" name="jenis" <?php if($data[0]["jenis"]=="PRAKTIKUM"){echo "checked";}?> required> Praktikum
                                 </label>
                             </div>
@@ -130,7 +131,7 @@ if (isset($_POST["submit"])) {
                                 </div>
                             </div>
                             <div align="right">
-                                <button type="submit" class="btn btn-warning" name="submit">Ubah</button>
+                                <button type="submit" class="btn btn-info" name="submit">Ubah</button>
                             </div>
                         </form>
                     </td>
@@ -142,7 +143,7 @@ if (isset($_POST["submit"])) {
             <tfoot style="height: 5%;" align="center">
                 <tr>
                     <td style="font-family: 'Courier New', Courier, monospace; font-size: 10pt"><b>© <?php echo date("M Y")?></b>
-                    <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://berikhtiar.com/hide.980" class='text-white' target='_blank'>HiDe09</a></td>
+                    <br>Made with <small class="text-danger">❤</small> for <b>YOU</b> by <a href="https://github.com/agilbudi" class='text-white' target='_blank'>HiDe09</a></td>
                 </tr>
             </tfoot>
         </table>

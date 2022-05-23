@@ -45,7 +45,7 @@ $sqlTabelmatkul = "CREATE TABLE IF NOT EXISTS matkul(
     hari int not null,
     linkmedia varchar(200) not null,
     KEY(matkul))";
-query($sqlTabelmatkul) or die("gagal buat tabel matkul."); //membuat tabel JadwalTugas
+query($sqlTabelmatkul) or die("gagal buat tabel matkul."); //membuat tabel JadwalMatkul
 
 
 $sqlTabelTugas = "CREATE TABLE IF NOT EXISTS tugas(
@@ -84,13 +84,12 @@ function tambah($data, $tabel){
     $menit = $data["menit"];
     $waktu = $jam.":".$menit;
     mysqli_query($connect,"INSERT INTO $tabel VALUES
-        ('', '$matkul', '$jenis', '$tanggal', '$waktu')");
+        (NULL, '$matkul', '$jenis', '$tanggal', '$waktu')");
     return mysqli_affected_rows($connect);
 }
 
 function tambahMatkul($data){
     global $connect;
-    //masukan ke tabel JadwalTugas
     $matkul = htmlspecialchars($data["matkul"]);
     $jenis = $data["jenis"];
     $jam = $data["jam"];
@@ -98,8 +97,9 @@ function tambahMatkul($data){
     $waktu = $jam.":".$menit;
     $hari = $data["hari"];
     $linkmedia = $data["linkmedia"];
+    //masukan ke tabel matkul
     mysqli_query($connect,"INSERT INTO matkul VALUES
-                ('','$matkul','$jenis','$waktu','$hari','$linkmedia')");
+                (NULL,'$matkul','$jenis','$waktu','$hari','$linkmedia')");
     
     return mysqli_affected_rows($connect);
 }
@@ -110,7 +110,7 @@ function tambahTugas($data){
     $link = htmlspecialchars($data["link"]);
     //masukan ke tabel tugas
     mysqli_query($connect,"INSERT INTO tugas VALUES
-                ('', '$idmatkul', '$namaTugas', '$link')");
+                (NULL, '$idmatkul', '$namaTugas', '$link')");
     
     return mysqli_affected_rows($connect);
 }
@@ -128,6 +128,25 @@ function update($data, $tabel){
     mysqli_query($connect, "UPDATE $tabel SET matkul = '$matkul',
             jenis = '$jenis', tanggal = '$tanggal', waktu = '$waktu' 
             WHERE id$tabel = $id");
+    
+    return mysqli_affected_rows($connect);
+}
+
+function updateMatkul($data){
+    global $connect;
+
+    $id = $data["id"];
+    $matkul = htmlspecialchars($data["matkul"]);
+    $jenis = $data["jenis"];
+    $jam = $data["jam"];
+    $menit = $data["menit"];
+    $waktu = $jam.":".$menit;
+    $hari = $data["hari"];
+    $linkmedia = $data["linkmedia"];
+
+    mysqli_query($connect,"UPDATE matkul SET jenis ='$jenis',
+             matkul ='$matkul', waktu ='$waktu', hari ='$hari', 
+            linkmedia ='$linkmedia' WHERE idmatkul = $id");
     
     return mysqli_affected_rows($connect);
 }

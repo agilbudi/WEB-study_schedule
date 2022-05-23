@@ -8,7 +8,7 @@ Note: Gunakan [xampp](https://www.apachefriends.org/download.html) untuk menjala
 
 ## Berikut fitur yang ada diaplikasi
 
-## $Fitur:$
+Fitur:
 
 - Mencatat hari dan jam mata kuliah
 - Catatan jika ada tugas disetiap mata kuliah
